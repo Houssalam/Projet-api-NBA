@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Statistiques NBA</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<h1>Statistiques NBA</h1>
+	<table id="stats-table">
+		<thead>
+			<tr>
+				<th>Joueur</th>
+				<th>Equipe</th>
+				<th>Poste</th>
+				<th>Minutes par match</th>
+				<th>Points par match</th>
+				<th>Rebonds par match</th>
+				<th>Passes décisives par match</th>
+				<th>Interceptions par match</th>
+				<th>Contres par match</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+    <style>
+        table {
+	border-collapse: collapse;
+	margin: 20px;
+}
+
+td, th {
+	padding: 10px;
+	border: 1px solid black;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+    </style>
+
+	<script>
+       const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '64e7c96dd1msh09d0ddb416b4f6bp1a51c8jsn107490c5222a',
+		'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
+	}
+};
+
+fetch('https://free-nba.p.rapidapi.com/stats?page=0&per_page=25', options)
+	.then(response => response.json())
+	.then(response => displayStats(response))
+	.catch(err => console.error(err));
+
+function displayStats(stats) {
+	const statsTable = document.querySelector('#stats-table tbody');
+
+	stats.data.forEach(player => {
+		const playerRow = document.createElement('tr');
+		playerRow.innerHTML = `
+			<td>${player.player.first_name} ${player.player.last_name}</td>
+			<td>${player.team.full_name}</td>
+			<td>${player.player.position}</td>
+			<td>${player.min}</td>
+			<td>${player.pts}</td>
+			<td>${player.reb}</td>
+			<td>${player.ast}</td>
+			<td>${player.stl}</td>
+			<td>${player.blk}</td>
+		`;
+		statsTable.appendChild(playerRow);
+	});
+}
+ 
+    </script>
+</body>
+</html>
