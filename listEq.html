@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Liste des équipes NBA</title>
+    <style>
+      /* CSS pour la mise en forme */
+      .equipe {
+        border: 1px solid black;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Liste des équipes NBA</h1>
+    <p>Sélectionnez une conférence pour afficher les équipes correspondantes :</p>
+    <select id="conference-select">
+      <option value="est">Conférence Est</option>
+      <option value="ouest">Conférence Ouest</option>
+    </select>
+    <div id="equipes"></div>
+    <script>
+      // JavaScript pour récupérer les données des équipes et les afficher par conférence
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': '64e7c96dd1msh09d0ddb416b4f6bp1a51c8jsn107490c5222a',
+          'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
+        }
+      };
+
+      // Récupérer les éléments HTML pour la liste déroulante et la div des équipes
+      const conferenceSelect = document.getElementById("conference-select");
+      const equipesDiv = document.getElementById("equipes");
+
+      fetch('https://free-nba.p.rapidapi.com/teams?page=0', options)
+        .then(response => response.json())
+        .then(response => {
+          // Créer des variables pour stocker les informations des équipes
+          const equipes = response.data;
+          const equipesEst = [];
+          const equipesOuest = [];
+
+          // Filtrer les équipes par conférence
+          equipes.forEach(equipe => {
+            if (equipe.conference === 'East') {
+              equipesEst.push(equipe);
+            } else {
+              equipesOuest.push(equipe);
+            }
+          });
+
+          // Fonction de mise à jour de la liste des équipes
+          const updateEquipesList = (equipes) => {
+            // Vider la div des équipes
+            equipesDiv.innerHTML = "";
+
+            // Ajouter les équipes correspondantes à la div
+            equipes.forEach(equipe => {
+              const equipeElement = document.createElement("div");
+              equipeElement.classList.add("equipe");
+              equipeElement.innerHTML = `<h3>${equipe.full_name}</h3><p>${equipe.city}</p>`;
+              equipesDiv.appendChild(equipeElement);
+            });
+          };
+
+          // Écouter les changements de la liste déroulante pour mettre à jour la liste des équipes
+          conferenceSelect.addEventListener("change", () => {
+            const selectedConference = conferenceSelect.value;
+            if (selectedConference === "est") {
+              updateEquipesList(equipesEst);
+            } else if (selectedConference === "ouest") {
+              updateEquipesList(equipesOuest);
+            }
+          });
+
+          // Afficher la liste des équipes par défaut
+          updateEquipesList(equipesEst);
+        })
+        .catch(err => console.error(err));
+
+
+        
+    </script>
+  </body>
+</html>

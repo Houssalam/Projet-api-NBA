@@ -1,19 +1,264 @@
-body {
-	font-family: Arial, sans-serif;
+.navbar {
+    background-color: black;
+    position: relative;
+    z-index: 1;
+	width: 100%;
 }
 
-h1 {
-	text-align: center;
+
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: rgba(168, 151, 151, 1);
+    border-radius:  0 0% 0% 0 ;
+}
+.navbar-nav li.nav-item:not(:last-child) {
+	margin-right: 20px;
+  }
+  
+
+.navbar::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    z-index: -1;
+    background-color: rgba(199, 188, 213, 1);
+    border-radius: 50% / 100%;
+    overflow: hidden;
 }
 
-ul {
-	list-style: none;
-	padding: 0;
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-link {
+    color: #fff;
+    font-weight: bold;
+    padding: 0.9rem 1rem;
+	
+}
+
+.nav-link:hover {
+    color: #F9A71F;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0 50% 50% 0;
+}
+#caroussel {
+	width: 90%;
+	max-width: 600px;
+	overflow: hidden;
+	border: 2px solid black;
+	border-radius: 1em;
+	margin: 1% auto;
+  }
+  
+  .image_caroussel {
+	display: flex;
+	animation-duration: 20s;
+	animation-name: mesImages;
+	animation-iteration-count: infinite;
+  }
+  
+  @keyframes mesImages {
+	0% {
+	  transform: translateX(0);
+	}
+	20% {
+	  transform: translateX(-360px);
+	}
+	40% {
+	  transform: translateX(-720px);
+	}
+	60% {
+	  transform: translateX(-1080px);
+	}
+	80% {
+	  transform: translateX(-1440px);
+	}
+	100% {
+	  transform: translateX(0);
+	}
+  }
+  
+  /* Styles pour les scores */
+.score {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	background-color: #fff;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 16px;
+  }
+  
+  .team {
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
+  }
+  
+  .team h2 {
 	margin: 0;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.2;
+  }
+  
+  .score-value {
+	font-size: 20px;
+	font-weight: bold;
+	color: #000;
+	padding: 8px;
+	border-radius: 50%;
+	background-color: #fff;
+	border: 2px solid #000;
+	margin-left: 10px;
+	margin-right: 5px;
+  }
+  
+  .live-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .live {
+	background-color: #32CD32;
+	padding: 5px 10px;
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	margin-right: 10px;
+  }
+  
+  .live h3 {
+	margin: 0;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-right: 5px;
+  }
+  
+  .live-effect {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: red;
+	animation: pulse 0.2s infinite ease-in-out;
+
+  }
+  .score-value:nth-child(1) {
+    background-color: #00FF00;
+    color: #000;
 }
 
-li {
-	padding: 10px;
-	border: 1px solid #ccc;
-	margin-bottom: 5px;
+.score-value:nth-child(2) {
+    background-color: #FF0000;
+    color: #fff;
 }
+
+  
+  /* Styles pour le carrousel */
+  #caroussel {
+	width: 100%;
+	max-width: 600px;
+	overflow: hidden;
+	border: 2px solid black;
+	border-radius: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1%;
+  }
+  
+  .image_caroussel {
+	display: flex;
+	animation-duration: 20s;
+	animation-name: mesImages;
+	animation-iteration-count: infinite;
+  }
+  
+  @keyframes mesImages {
+	0% {
+	  transform: translateX(0);
+	}
+	20% {
+	  transform: translateX(-360px);
+	}
+	40% {
+	  transform: translateX(-720px);
+	}
+	60% {
+	  transform: translateX(-1080px);
+	}
+	80% {
+	  transform: translateX(-1440px);
+	}
+	100% {
+	  transform: translateX(0);
+	}
+  }
+  
+  /* Media Queries */
+  
+  @media (max-width: 768px) {
+	.team h2 {
+	  font-size: 16px;
+	}
+	
+	.score-value {
+	  font-size: 18px;
+	  padding: 5px;
+	}
+	
+	.live {
+	  font-size: 12px;
+	}
+	
+	.live-effect {
+	  width: 8px;
+	  height: 8px;
+	}
+  }
+  
+  @media (max-width: 576px) {
+	.team h2 {
+	  font-size: 14px;
+	}
+	
+	.score-value {
+	  font-size: 16px;
+	  padding: 4px;
+	}
+	
+	.live {
+	  font-size: 10px;
+	}
+	
+	.live-effect {
+	  width: 6px;
+	  height: 6px;
+	}
+	
+	.team, .live-container {
+	  margin-right: 5px;
+	}
+  }
+  
+  
+  
+  
+  
